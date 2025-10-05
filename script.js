@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             versions: {
                 title: "ブラックエース & レッドジョーカー",
-                image: "https://upload.wikimedia.org/wikipedia/fr/6/67/Mega_Man_Star_Force_3_Logo.png", // Image URL for Versions
+                image: "https://static.mercdn.net/item/detail/orig/photos/m69558035108_1.jpg", // Image URL for Versions
                 content: `
                     <p>多くのロックマンシリーズと同様に、『流星のロックマン3』は<b>ブラックエース</b>と<b>レッドジョーカー</b>の2つのバージョンでリリースされました。</p>
                     <ul>
@@ -117,6 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 switchContent(page);
             });
         });
+         // --- BACKGROUND MUSIC HANDLER ---
+    const backgroundMusic = document.getElementById('bg-music');
+    
+    function playAudio() {
+        if (backgroundMusic && backgroundMusic.paused) {
+            backgroundMusic.play().catch(error => {
+                // Autoplay was prevented.
+                console.log("Autoplay was blocked by the browser. A user interaction is required to play audio.");
+                // Add a fallback to play on the first click.
+                document.body.addEventListener('click', playAudio, { once: true });
+            });
+        }
+    }
 
         // --- INITIAL PAGE LOAD ---
         
@@ -126,5 +139,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update the clock immediately and then every second
         updateClock();
         setInterval(updateClock, 1000);
-
+         playAudio(); // Attempt to play audio on load
     });
